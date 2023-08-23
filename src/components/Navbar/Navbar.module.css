@@ -1,0 +1,38 @@
+.container {
+  align-content: center;
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  height: 60px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.menu {
+  display: none;
+}
+.menuOpen {
+  display: block;
+}
+
+/*
+  I guess this is just how CSS is written nowadays?
+  It's just very weird. Guess this means I can't do 
+  "buttonClass svg" either? kinda annoying lol
+*/
+
+.button {
+  border: 0;
+  background: none;
+  margin-right: 15px;
+  padding: 5px 10px;
+}
+
+.buttonOpen {
+  composes: button;
+  background: white;
+}
+
+.buttonSvgOpen {
+  filter: brightness(0);
+}

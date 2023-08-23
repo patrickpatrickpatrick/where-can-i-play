@@ -1,0 +1,8 @@
+.locationPickerContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.mapContainer {
+    width: 80%;
+}

@@ -1,0 +1,17 @@
+.container {
+  flex-basis: 1100px;
+}
+
+/* could do stuff w/ rem
+that i never get to do 
+in my job */
+
+.header {
+  font-size: 56px; /* gonna change this later */
+  margin: 30px 0;
+  text-align: center;
+}
+
+.searchBoxContainer {
+  margin: auto;
+}
