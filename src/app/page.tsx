@@ -7,44 +7,21 @@ import Navbar from './../components/Navbar/Navbar';
 import LocationPicker from './../components/LocationPicker/LocationPicker';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { getIgdbToken } from './../lib/igdbFunctions';
-
-const exampleList = [
-  {
-    id: "1",
-    name: "Las Vegas Arcade",
-    lat: 51.51268,
-    lng: -0.13357,
-    node: "5480809514",
-    address: "Basement, 89, 91 Wardour St, London W1F 0UB",
-  },
-  {
-    id: "2",
-    name: "Ferfect Fried Chicken",
-    lat: 51.43952,
-    lng: -0.05496,
-    node: "289555898",
-    address: "24 London Rd, London SE23 3HF",
-  },
-  {
-    id: "3",
-    name: "Larry's Hall of Amusements",
-    lat:  51.46802,
-    lng: -0.06643,
-    node: "78765526",
-    address: "187 Rye Ln, London SE15 4TW",
-  }
-]
+import { getArcades } from './../lib/firebaseFunctions';
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from './../components/StoreProvider';
 
 const HomeContent = () => <main className={styles.contentContainer}>
   <Navbar />
   <div className={styles.attractModeContainer} >
     <AttractMode />
   </div>
-  <LocationPicker locationList={exampleList} />
+  <LocationPicker />
 </main>
 
 export const IgbdContext = createContext({});
 export const SelectedGameContext = createContext({});
+export const ArcadesListContext = createContext([]);
 
 interface igdbDetailsType {
   accessToken: string|null,
@@ -53,6 +30,10 @@ interface igdbDetailsType {
 }
 
 export default function Home() {
+  const count = useSelector((state: RootState) => state.igdbCredentials);
+
+  console.log(count);
+
   const [igdbDetails, setIgdbDetails] = useState<igdbDetailsType>({
     accessToken: null,
     clientId: "3tu8lo9egl3ww65udjby7y3yeo8ozb",
@@ -60,6 +41,7 @@ export default function Home() {
   });
 
   const [selectedGame, setSelectedGame] = useState(null);
+  const [listOfArcades, setListOfArcades] = useState([]);
   
   const getAccessToken = () => {
     const { accessToken, clientId, clientSecret } = igdbDetails;
@@ -71,20 +53,25 @@ export default function Home() {
     }
   }
 
-  const getListOfArcades = () => {
-
+  const getListOfArcades = async () => {
+    if (selectedGame) {
+      let list = await getArcades(selectedGame);
+      setListOfArcades(list);
+    }
   }
 
   useEffect(() => {
     getAccessToken();
     getListOfArcades();
-  }[accessToken, selectedGame])
+  }, [igdbDetails, selectedGame])
 
   return (
+    <ArcadesListContext.Provider value={listOfArcades}>
     <SelectedGameContext.Provider value={{ selectedGame, setSelectedGame }}>
     <IgbdContext.Provider value={igdbDetails}>
         <HomeContent />
     </IgbdContext.Provider>
     </SelectedGameContext.Provider>
+    </ArcadesListContext.Provider>
   )
 }

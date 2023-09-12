@@ -4,25 +4,18 @@ import React, { useState, useContext } from 'react';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
 import styles from './LocationPicker.module.css';
-
-interface Location {
-  id: string,
-  name: string,
-  lat: number,
-  lng: number,
-  node: string,
-  address: string,
-}
+import { Location } from '../../lib/types';
+import { ArcadesListContext } from '../../app/page';
 
 interface props {
   locationList?: Location[],
 }
 
 const LocationPicker = (props: props) => {
-    const { locationList } = props;
+    const locationList = useContext(ArcadesListContext);
     const [selectedLocation, setSelectedLocation] = useState("");
 
-    if (!selectedLocation.length && locationList) {
+    if (selectedLocation && locationList?.length) {
       setSelectedLocation(locationList[0].id)
     }
 
@@ -36,7 +29,7 @@ const LocationPicker = (props: props) => {
           </div>  
         }
         <div className={styles.mapContainer}>
-          <Map lat={currentLocation?.lat} lng={currentLocation?.lng} />
+          <Map lat={currentLocation ? currentLocation?.lat : 51.51268} lng={currentLocation ? currentLocation?.lng : -0.13357} />
         </div>
       </div>        
     )

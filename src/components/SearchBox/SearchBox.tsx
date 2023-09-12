@@ -2,9 +2,9 @@
 
 import { ActionMeta } from 'react-select';
 import AsyncSelect from 'react-select/async';
-import { useState, useContext } from 'react';
-import { getGame } from './../../lib/igdbFunctions';
-import { IgbdContext, SelectedGameContext } from "../../page";
+import { useState, useContext, useId } from 'react';
+import { getGamesFromIgdb } from './../../lib/igdbFunctions';
+import { IgbdContext, SelectedGameContext } from "../../app/page";
 
 type Option = {label: string, value: string}
 
@@ -31,15 +31,14 @@ export default function SearchBox(props: props) {
     inputValue: string,
     callback: (options: Option[]) => void
   ) => {
-    return getGame(accessToken, clientId, inputValue).then(
+    return getGamesFromIgdb(accessToken, clientId, inputValue).then(
       data => data.map(({ name, id }) => ({ label: name, value: id }))
     )
   };  
 
 	return (
     <AsyncSelect
-      id={`search-box-${id}`}
-      instanceId={`search-box-${id}`}
+      instanceId={useId()}
       isSearchable
       isClearable
       defaultValue={selectedOption}
