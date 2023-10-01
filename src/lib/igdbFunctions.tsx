@@ -11,7 +11,7 @@ export const getIgdbToken = (client_id: string, client_secret: string): Promise<
 .then(data => data.json())
 .then(json => json["access_token"]);
 
-export const getGamesFromIgdb = (accessToken: string, clientId: string, query: string): Awaited<Promise<any>> => postData("http://localhost:3005/game", {
+export const getGamesFromIgdb = (accessToken: string, clientId: string, query: string): Awaited<Promise<any>> => postData("http://localhost:3000/game", {
     accessToken,
     clientId,
     query,

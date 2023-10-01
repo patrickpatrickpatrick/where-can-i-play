@@ -2,7 +2,8 @@
 
 import { ActionMeta } from 'react-select';
 import AsyncSelect from 'react-select/async';
-import { useState, useContext, useId } from 'react';
+import debounce from "lodash/debounce";
+import { useState, useContext, useId, useMemo } from 'react';
 import { getGamesFromIgdb } from './../../lib/igdbFunctions';
 import { IgbdContext, SelectedGameContext } from "../../app/page";
 
@@ -27,14 +28,16 @@ export default function SearchBox(props: props) {
     }
   }
 
-  const loadOptions = (
+  const getOptions = (
     inputValue: string,
     callback: (options: Option[]) => void
   ) => {
-    return getGamesFromIgdb(accessToken, clientId, inputValue).then(
-      data => data.map(({ name, id }) => ({ label: name, value: id }))
-    )
-  };  
+    getGamesFromIgdb(accessToken, clientId, inputValue).then(
+      data => callback(data.map(({ name, id }) => ({ label: name, value: id })))
+    )      
+  }
+
+  const loadOptions = debounce(getOptions, 300);
 
 	return (
     <AsyncSelect

@@ -32,8 +32,6 @@ interface igdbDetailsType {
 export default function Home() {
   const count = useSelector((state: RootState) => state.igdbCredentials);
 
-  console.log(count);
-
   const [igdbDetails, setIgdbDetails] = useState<igdbDetailsType>({
     accessToken: null,
     clientId: "3tu8lo9egl3ww65udjby7y3yeo8ozb",

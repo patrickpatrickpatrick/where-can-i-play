@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createApi } from '@reduxjs/toolkit/query'
 
-
 // // Define a service using a base URL and expected endpoints
 // export const arcadeApi = createApi({
 //   reducerPath: 'pokemonApi',
@@ -12,6 +11,7 @@ import { createApi } from '@reduxjs/toolkit/query'
 //     }),
 //   }),
 // })
+// eh i could do this but it does work?
 
 interface arcades {
   list: Location[],
@@ -28,10 +28,10 @@ export const arcadesSlice = createSlice({
   initialState: initialArcadesState,
   reducers: {
     setList: (state, { payload: { list }}) => {
-        state.list = list
+      state.list = list
     },
     setSelected: (state, { payload: { id } }) => {
-        state.selected = id
+      state.selected = id
     }
   }
 });
