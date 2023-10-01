@@ -8,8 +8,6 @@ import LocationPicker from './../components/LocationPicker/LocationPicker';
 import { useEffect, useState, createContext, useContext } from 'react';
 import { getIgdbToken } from './../lib/igdbFunctions';
 import { getArcades } from './../lib/firebaseFunctions';
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from './../components/StoreProvider';
 
 const HomeContent = () => <main className={styles.contentContainer}>
   <Navbar />
@@ -19,7 +17,7 @@ const HomeContent = () => <main className={styles.contentContainer}>
   <LocationPicker />
 </main>
 
-export const IgbdContext = createContext({});
+export const IgbdContext = createContext({}); // this doesn't need to be a context
 export const SelectedGameContext = createContext({});
 export const ArcadesListContext = createContext([]);
 
@@ -30,13 +28,13 @@ interface igdbDetailsType {
 }
 
 export default function Home() {
-  const count = useSelector((state: RootState) => state.igdbCredentials);
-
   const [igdbDetails, setIgdbDetails] = useState<igdbDetailsType>({
     accessToken: null,
     clientId: "3tu8lo9egl3ww65udjby7y3yeo8ozb",
     clientSecret: "tewyroejliy73uiulgr6nib0u3f9fa",
   });
+
+  console.log(process.env.IGDB_SECRET)
 
   const [selectedGame, setSelectedGame] = useState(null);
   const [listOfArcades, setListOfArcades] = useState([]);
