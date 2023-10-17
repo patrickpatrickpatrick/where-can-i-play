@@ -9,5 +9,6 @@ export const postData = async (url = "", data = {}, headers = {}) => {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+
   return response.json(); 
 }

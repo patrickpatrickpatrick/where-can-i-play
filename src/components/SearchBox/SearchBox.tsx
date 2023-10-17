@@ -3,7 +3,7 @@
 import { ActionMeta } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import debounce from "lodash/debounce";
-import { useState, useContext, useId, useMemo } from 'react';
+import { useState, useContext, useId } from 'react';
 import { getGamesFromIgdb } from './../../lib/igdbFunctions';
 import { SelectedGameContext } from "./../../lib/contexts";
 
@@ -20,7 +20,9 @@ const getOptions = (
   callback: (options: Option[]) => void
 ) => {
   getGamesFromIgdb(inputValue).then(
-    data => callback(data.map(({ name, ...data }) => ({ label: name, value: JSON.stringify({ name, ...data }) })))
+    data => callback(data.map(
+      ({ name, ...data }) => (
+        { label: name, value: JSON.stringify({ name, ...data }) })))
   )      
 }
 

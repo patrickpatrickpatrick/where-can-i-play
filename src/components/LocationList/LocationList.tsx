@@ -1,37 +1,33 @@
-'use client';
-
-import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 import LocationItem from './LocationItem';
 import SearchBox from '../SearchBox/SearchBox';
 import styles from './LocationList.module.scss';
-import { Location } from '../../lib/types';
-import { SelectedGameContext } from './../../lib/contexts';
+import { Location, Game } from '../../lib/types';
 
 interface props {
-  locationList?: Location[],
-  selectedLocation?: string,
-  locationSetter: Dispatch<SetStateAction<string>>
+  locationList: Location[],
+  selectedLocation: string,
+  game: Game
 }
 
+const GameBanner = ({ name, first_release_date, cover_url  }: Game) => <>
+  <h2>Results for: { name } { (new Date(first_release_date * 1000)).getFullYear() }</h2>
+  <img src={cover_url} />
+</>
+
 const LocationList = (props: props) => {
-  const { locationList, locationSetter, selectedLocation } = props;
-  const { selectedGame } = useContext(SelectedGameContext);
-  const { name, first_release_date, cover_url } = JSON.parse(selectedGame);
-  const release_year = (new Date(first_release_date * 1000)).getFullYear();
+  const { locationList, selectedLocation, game } = props;
 
   return (
     <div className={styles.locationList}>
       <SearchBox />
-      <h2>Results for: { name } { release_year }</h2>
-      <img src={cover_url} />
+      <GameBanner {...game} />
       <ul>
           {
             (locationList || []).map((props) => 
               (<LocationItem
-                key={props.id}
-                {...props}
-                locationSetter={locationSetter}
-                isSelectedLocation={selectedLocation == props.id}
+                  key={props.id}
+                  {...props}
+                  isSelectedLocation={selectedLocation == props.id}
               />)
             )
           }

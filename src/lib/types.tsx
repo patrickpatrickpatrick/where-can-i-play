@@ -6,10 +6,10 @@ export interface Location {
   place_id: number,
   games: any,
   osm_id: number,
-  address: address,
+  address: Address,
 }
 
-export interface address {
+export interface Address {
   "ISO3166-2-lvl4": string,
   "ISO3166-2-lvl6": string,
   city: string,
@@ -22,4 +22,12 @@ export interface address {
   road: string,
   state: string,
   suburb: string
+}
+
+export interface Game {
+  name: string,
+  cover: number,
+  id: number,
+  first_release_date: number,
+  cover_url: string
 }

@@ -1,58 +1,88 @@
-// 'use client';
-
-import { useState, useContext, useEffect } from 'react';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
 import styles from './LocationPicker.module.css';
-import { Location } from '../../lib/types';
-import { ArcadesListContext } from './../../lib/contexts';
-
+import { Location, Game } from '../../lib/types';
 import { getArcades } from './../../lib/firebaseFunctions'
+import { getGameFromIgdb } from './../../lib/igdbFunctions';
 
 interface locationPickerProps {
-  id?: string
+  gameId?: string
+  arcadeId?: string
 }
 
-const fetchLocations = async (id) => {
+
+
+const fetchGame = async (id: string) => {
+  console.log('ayyy')
+  // let game = await getGameFromIgdb(id);
+  // return game;
+
+  console.log(`http://localhost:3000/game/${id}`)
+
+  try {
+    const res = await fetch(`http://localhost:3000/game/${id}`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+       if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch dataaaa')
+  }
+ 
+  const json = await res.json();
+
+
+  console.log(json)
+
+  return res.json()
+  } catch(e) {
+    console.log(e)
+  }
+
+
+
+
+
+}
+
+const fetchLocations = async (id: string) => {
   let listOfArcades = await getArcades(id);
   return listOfArcades;
 }
 
-const LocationPicker = async ({ id }: locationPickerProps) => {
-  // const locationList = useContext(ArcadesListContext) as Location[];
-
+const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
   let locationList = [] as Location[];
+  let selectedLocation = {} as Location;
+  let game = {} as Game;
 
-  console.log(id)
-
-  if (id) {
-    let locationList = await fetchLocations(id)  
+  if (gameId) {
+    game = await fetchGame(gameId);
+    console.log(game)
+    locationList = await fetchLocations(gameId);
   }
 
-  const [selectedLocation, setSelectedLocation] = useState("");
-
-  useEffect(() => {
-    if (locationList.length) {
-      setSelectedLocation(locationList[0].id)  
-    }
-  }, [locationList])
-
-  const currentLocation = locationList &&
-    locationList.find(x => x.id == selectedLocation);
+  if (locationList) {
+    selectedLocation = (arcadeId ? locationList.find(x => x.id == arcadeId) : locationList[0].id) as Location;
+  }
 
   return (
     <div className={styles.locationPickerContainer}>
       {
         !!locationList.length && <LocationList
-          locationSetter={setSelectedLocation}
-          selectedLocation={selectedLocation}
+          selectedLocation={selectedLocation.id}
           locationList={locationList}
+          game={game}
         />
       }
       <div className={styles.mapContainer}>
         <Map
-          lat={currentLocation ? currentLocation?.lat : 51.51268}
-          lng={currentLocation ? currentLocation?.lng : -0.13357}
+          lat={selectedLocation ? selectedLocation?.lat : 51.51268}
+          lng={selectedLocation ? selectedLocation?.lng : -0.13357}
         />
       </div>
     </div>        
