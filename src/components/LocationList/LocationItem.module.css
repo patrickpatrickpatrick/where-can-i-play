@@ -1,7 +1,0 @@
-.location {
-    padding: 20px;
-}
-  
-.locationSelected {
-    composes: location;
-}

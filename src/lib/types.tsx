@@ -1,9 +1,3 @@
-export interface igdbDetailsType {
-  accessToken: string|null,
-  clientId: string,
-  clientSecret: string,
-}
-
 export interface Location {
   id: string,
   name: string,
@@ -29,4 +23,3 @@ export interface address {
   state: string,
   suburb: string
 }
-

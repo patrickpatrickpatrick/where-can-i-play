@@ -1,10 +1,15 @@
 .container {
-  flex-basis: 1100px;
+  position: absolute;
+  top: clamp(100px, calc(100% / 5), 300px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  padding: 50px;
 }
 
-/* could do stuff w/ rem
-that i never get to do 
-in my job */
+.contentContainer {
+  flex-basis: 1100px;
+}
 
 .header {
   font-size: 56px; /* gonna change this later */

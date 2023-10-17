@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import styles from './LocationList.module.css';
+import styles from './LocationItem.module.scss';
 import { address } from './../../lib/types';
 
 interface props {
@@ -19,7 +19,12 @@ const createAddress = ({
     road,
     state,
     suburb
-}: address) => `${house_number} ${road} ${neighbourhood} ${suburb} ${city} ${state} ${postcode} ${country}`
+}: address) => <address>
+    <p>{house_number} {road}</p>
+    <p>{road}</p>
+    <p>{city}</p>
+    <p>{postcode}</p>
+</address>
 
 const LocationItem = ({
     id,
@@ -28,12 +33,12 @@ const LocationItem = ({
     name,
     address,
 }: props) => <li
-        key={id}
-        onClick={() => locationSetter(id)}
-        className={isSelectedLocation ? styles.locationSelected : styles.location }
-    >
-        <h2>{name} - {isSelectedLocation ? "SELECTED" : "NOT SELECTED"}</h2>
-        <address>{createAddress(address)}</address>
+  key={id}
+  onClick={() => locationSetter(id)}
+  className={isSelectedLocation ? styles.locationSelected : styles.location }
+>
+  <h2>{name} - {isSelectedLocation ? "SELECTED" : "NOT SELECTED"}</h2>
+  <address>{createAddress(address)}</address>
 </li>
 
 export default LocationItem;

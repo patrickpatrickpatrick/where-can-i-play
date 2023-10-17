@@ -1,7 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+'use client';
+
+import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 import LocationItem from './LocationItem';
-import styles from './LocationList.module.css';
+import SearchBox from '../SearchBox/SearchBox';
+import styles from './LocationList.module.scss';
 import { Location } from '../../lib/types';
+import { SelectedGameContext } from './../../lib/contexts';
 
 interface props {
   locationList?: Location[],
@@ -11,13 +15,24 @@ interface props {
 
 const LocationList = (props: props) => {
   const { locationList, locationSetter, selectedLocation } = props;
+  const { selectedGame } = useContext(SelectedGameContext);
+  const { name, first_release_date, cover_url } = JSON.parse(selectedGame);
+  const release_year = (new Date(first_release_date * 1000)).getFullYear();
 
   return (
-    <div>
+    <div className={styles.locationList}>
+      <SearchBox />
+      <h2>Results for: { name } { release_year }</h2>
+      <img src={cover_url} />
       <ul>
           {
             (locationList || []).map((props) => 
-              (<LocationItem {...props} locationSetter={locationSetter} isSelectedLocation={selectedLocation == props.id} />)
+              (<LocationItem
+                key={props.id}
+                {...props}
+                locationSetter={locationSetter}
+                isSelectedLocation={selectedLocation == props.id}
+              />)
             )
           }
       </ul>

@@ -1,0 +1,23 @@
+/*
+ don't really know how much i like
+ using css modules but if you want
+ to see me using 'real' css then
+ there's lots of professional
+ examples of that!!
+*/
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.attractModeContainer {
+  position: absolute;
+  top: clamp(100px, calc(100% / 5), 300px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  padding: 50px;
+  background: white;
+}
