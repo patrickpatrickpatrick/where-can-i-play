@@ -1,9 +1,21 @@
-.location {
+.locationItem {
+  background-color: white;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  
   p {
     padding-top: 0.5rem;
   }
 }
 
-.locationSelected {
-  composes: location;
+.locationItemName {
+  font-size: 1.3rem;
+}
+
+.locationItemSelected {
+  composes: locationItem;
+}
+
+.locationItemAddress {
+  padding-top: 0.5rem;
 }

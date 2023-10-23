@@ -6,6 +6,8 @@ import debounce from "lodash/debounce";
 import { useState, useContext, useId } from 'react';
 import { getGamesFromIgdb } from './../../lib/igdbFunctions';
 import { SelectedGameContext } from "./../../lib/contexts";
+import { Game } from "./../../lib/types";
+import { useRouter } from 'next/navigation'
 
 type Option = {label: string, value: string}
 
@@ -13,6 +15,7 @@ interface props {
   id?: string,
   options?: Option[],
   onChange?: any,
+  selectedGame: Game,
 }
 
 const getOptions = (
@@ -28,13 +31,13 @@ const getOptions = (
 
 export default function SearchBox(props: props) {
   const [selectedOption, setSelectedOption] = useState<Option|null>(null);
-  const { setSelectedGame, selectedGame } = useContext(SelectedGameContext);
-  const { id, options } = props;
+  const { id, options, selectedGame } = props;
+  const router = useRouter()
 
   const handleChange = (option: Option | null, actionMeta: ActionMeta<Option>) => {
     if (option) {
-      setSelectedOption(option);
-      setSelectedGame(option.value);
+      const game = JSON.parse(option.value)
+      router.push(`/game/${game.id}`)
     }
   }
 
@@ -42,8 +45,8 @@ export default function SearchBox(props: props) {
 
   if (selectedGame && !selectedOption) {
     setSelectedOption({
-      label: JSON.parse(selectedGame)["name"],
-      value: selectedGame
+      label: selectedGame["name"],
+      value: JSON.stringify(selectedGame)
     })
   }
 

@@ -1,6 +1,7 @@
 import { postData } from "./apiFunctions";
+import { BACKEND_URL } from './globals';
 
-export const getArcades = (gameId: string): Awaited<Promise<any>> => postData("http://localhost:3000/arcades", {
+export const getArcades = (gameId: string): Awaited<Promise<any>> => postData(`${BACKEND_URL}arcades`, {
     gameId
 }).then((data) => {
     return data.results;

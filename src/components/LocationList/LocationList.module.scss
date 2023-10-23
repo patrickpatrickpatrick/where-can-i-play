@@ -1,4 +1,40 @@
-.locationList {
-  width: 400px;
+.locationListContainer {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   padding: 1rem;
+  position: absolute;
+  z-index: 9999;
+}
+
+.locationListSearchBoxContainer {
+  padding-bottom: 2rem;
+  width: 100%;
+}
+
+.locationListGameBannerContainer {
+  padding-bottom: 2rem;
+}
+
+.locationList {
+  width: 100%;
+}
+
+.gameBanner {
+  position: relative;
+  width: fit-content;
+}
+
+.gameBannerTitle {
+  position: absolute;
+  color: white;
+  bottom: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.gameBannerImageContainer {
+
 }

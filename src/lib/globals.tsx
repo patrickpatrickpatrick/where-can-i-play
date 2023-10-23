@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://wcip-backend-node-473c63442ca4.herokuapp.com/";

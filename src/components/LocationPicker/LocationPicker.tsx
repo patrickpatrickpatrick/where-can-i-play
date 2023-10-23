@@ -10,44 +10,9 @@ interface locationPickerProps {
   arcadeId?: string
 }
 
-
-
 const fetchGame = async (id: string) => {
-  console.log('ayyy')
-  // let game = await getGameFromIgdb(id);
-  // return game;
-
-  console.log(`http://localhost:3000/game/${id}`)
-
-  try {
-    const res = await fetch(`http://localhost:3000/game/${id}`, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-       if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch dataaaa')
-  }
- 
-  const json = await res.json();
-
-
-  console.log(json)
-
-  return res.json()
-  } catch(e) {
-    console.log(e)
-  }
-
-
-
-
-
+  let game = await getGameFromIgdb(id);
+  return game;
 }
 
 const fetchLocations = async (id: string) => {
@@ -62,19 +27,18 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
 
   if (gameId) {
     game = await fetchGame(gameId);
-    console.log(game)
     locationList = await fetchLocations(gameId);
   }
 
   if (locationList) {
-    selectedLocation = (arcadeId ? locationList.find(x => x.id == arcadeId) : locationList[0].id) as Location;
+    selectedLocation = (arcadeId ? locationList.find(x => x.osm_id == parseInt(arcadeId)) : locationList[0]) as Location;
   }
 
   return (
     <div className={styles.locationPickerContainer}>
       {
         !!locationList.length && <LocationList
-          selectedLocation={selectedLocation.id}
+          selectedLocation={selectedLocation.osm_id}
           locationList={locationList}
           game={game}
         />

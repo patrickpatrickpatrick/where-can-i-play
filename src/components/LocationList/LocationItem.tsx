@@ -1,9 +1,11 @@
+"use client"
+
 import styles from './LocationItem.module.scss';
 import { Address } from './../../lib/types';
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface props {
-  id: string,
+  osm_id: number,
   name: string,
   isSelectedLocation: boolean,
   address: Address
@@ -18,7 +20,9 @@ const createAddress = ({
   road,
   // state,
   // suburb
-}: Address) => <address>
+}: Address) => <address
+    className={styles.locationItemAddress}
+  >
     <p>{house_number} {road}</p>
     <p>{road}</p>
     <p>{city}</p>
@@ -26,23 +30,24 @@ const createAddress = ({
 </address>
 
 const LocationItem = ({
-    id,
+    osm_id,
     isSelectedLocation,
     name,
     address,
-}: props) => {
-  const router = useRouter()
-
-  return (
-    <li
-      key={id}
-      onClick={() => router.push(`#?arcadeId=${id}`)}
-      className={isSelectedLocation ? styles.locationSelected : styles.location}
+}: props) => <li
+  key={osm_id}
+  className={isSelectedLocation ? styles.locationItemSelected : styles.locationItem}
+>
+  <Link href={`?arcadeId=${osm_id}`}>
+    <h3
+      className={styles.locationItemName}
     >
-      <h2>{name} - {isSelectedLocation ? "SELECTED" : "NOT SELECTED"}</h2>
-      <address>{createAddress(address)}</address>
-    </li>
-  )
-} 
+      {name}
+    </h3>
+  </Link>
+  {
+    isSelectedLocation && <address>{createAddress(address)}</address>
+  }
+</li>
 
 export default LocationItem;

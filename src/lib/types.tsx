@@ -26,8 +26,9 @@ export interface Address {
 
 export interface Game {
   name: string,
-  cover: number,
   id: number,
   first_release_date: number,
-  cover_url: string
+  cover: {
+    url: string
+  }
 }
