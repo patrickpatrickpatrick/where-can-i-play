@@ -1,13 +1,12 @@
 "use client"; // This is a client component
 
-import { ActionMeta } from 'react-select';
+import { ActionMeta, components, OptionProps } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import debounce from "lodash/debounce";
 import { useState, useContext, useId } from 'react';
 import { getGamesFromIgdb } from './../../lib/igdbFunctions';
-import { SelectedGameContext } from "./../../lib/contexts";
 import { Game } from "./../../lib/types";
-import { useRouter } from 'next/navigation'
+import Link from 'next/link';
 
 type Option = {label: string, value: string}
 
@@ -15,7 +14,7 @@ interface props {
   id?: string,
   options?: Option[],
   onChange?: any,
-  selectedGame: Game,
+  selectedGame?: Game,
 }
 
 const getOptions = (
@@ -23,23 +22,26 @@ const getOptions = (
   callback: (options: Option[]) => void
 ) => {
   getGamesFromIgdb(inputValue).then(
-    data => callback(data.map(
+    (data: Game[]) => callback(data.map(
       ({ name, ...data }) => (
         { label: name, value: JSON.stringify({ name, ...data }) })))
   )      
 }
 
+const CustomOption = (props: OptionProps<Option>) => {
+  const { children, data: { value, label } } = props;
+  const { id } = JSON.parse(value);
+
+  return (<Link href={`/game/${id}`}>
+    <components.Option {...props}>
+      {children}
+    </components.Option>
+  </Link>)
+}
+
 export default function SearchBox(props: props) {
   const [selectedOption, setSelectedOption] = useState<Option|null>(null);
   const { id, options, selectedGame } = props;
-  const router = useRouter()
-
-  const handleChange = (option: Option | null, actionMeta: ActionMeta<Option>) => {
-    if (option) {
-      const game = JSON.parse(option.value)
-      router.push(`/game/${game.id}`)
-    }
-  }
 
   const loadOptions = debounce(getOptions, 300);
 
@@ -58,13 +60,16 @@ export default function SearchBox(props: props) {
           display: 'none', 
         })
       }}
+      components={{
+        Option: CustomOption
+      }}
       instanceId={useId()}
       isSearchable
+      menuIsOpen={true}
       isClearable
       defaultValue={selectedOption}
-      onChange={handleChange}
       defaultOptions={options}
-      noOptionsMessage={(inputValue) => inputValue.length > 0 ? "No results" : null}
+      noOptionsMessage={({ inputValue }) => inputValue.length > 0 ? "No results" : null}
       loadOptions={loadOptions}
       value={selectedOption}
     />    

@@ -1,52 +1,69 @@
 "use client"
 
 import styles from './LocationItem.module.scss';
-import { Address } from './../../lib/types';
-import Link from 'next/link'
+import { LocationAddress } from './../../lib/types';
+import Link from 'next/link';
 
 interface props {
   osm_id: number,
   name: string,
   isSelectedLocation: boolean,
-  address: Address
+  address: LocationAddress
 }
 
-const createAddress = ({ 
+interface activeLocationItemProps {
+  name: string,
+  address: LocationAddress
+}
+
+const Address = ({
   city,
-  // country,
   house_number,
-  // neighbourhood,
   postcode,
   road,
-  // state,
-  // suburb
-}: Address) => <address
+}: LocationAddress) => {
+  return <address
     className={styles.locationItemAddress}
   >
     <p>{house_number} {road}</p>
     <p>{road}</p>
     <p>{city}</p>
     <p>{postcode}</p>
-</address>
+  </address>
+}
+
+const ActionContainer = ({ url }: { url: string }) => <div
+    className={styles.actionContainer}
+  >
+    <a className={styles.actionContainerAction}>
+      Share
+    </a>
+    <a className={styles.actionContainerAction}>
+      Copy
+    </a>
+</div>
 
 const LocationItem = ({
-    osm_id,
-    isSelectedLocation,
-    name,
-    address,
+  osm_id,
+  isSelectedLocation,
+  name,
+  address,
 }: props) => <li
   key={osm_id}
   className={isSelectedLocation ? styles.locationItemSelected : styles.locationItem}
 >
-  <Link href={`?arcadeId=${osm_id}`}>
-    <h3
-      className={styles.locationItemName}
-    >
-      {name}
-    </h3>
-  </Link>
+  <h3
+    className={styles.locationItemName}
+  >
+    {
+      isSelectedLocation ? name : <Link href={`?arcadeId=${osm_id}`}>{name}</Link>
+    }
+  </h3>  
   {
-    isSelectedLocation && <address>{createAddress(address)}</address>
+    isSelectedLocation && <>
+      <Address {...address} />
+      <ActionContainer url={`?arcadeId=${osm_id}`}/>
+    </>
   }
 </li>
 

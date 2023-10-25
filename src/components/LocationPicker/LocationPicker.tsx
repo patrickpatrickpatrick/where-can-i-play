@@ -1,5 +1,7 @@
+import Overlay from './../Overlay/Overlay';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
+import LocationInfo from './../LocationInfo/LocationInfo';
 import styles from './LocationPicker.module.css';
 import { Location, Game } from '../../lib/types';
 import { getArcades } from './../../lib/firebaseFunctions'
@@ -22,7 +24,7 @@ const fetchLocations = async (id: string) => {
 
 const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
   let locationList = [] as Location[];
-  let selectedLocation = {} as Location;
+  let selectedLocation;
   let game = {} as Game;
 
   if (gameId) {
@@ -31,25 +33,28 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
   }
 
   if (locationList) {
-    selectedLocation = (arcadeId ? locationList.find(x => x.osm_id == parseInt(arcadeId)) : locationList[0]) as Location;
+    selectedLocation = (arcadeId ? locationList.find(x => x.osm_id == parseInt(arcadeId)) : locationList[0])
   }
 
   return (
-    <div className={styles.locationPickerContainer}>
-      {
-        !!locationList.length && <LocationList
-          selectedLocation={selectedLocation.osm_id}
+    <>
+      <Overlay direction={'left'}>
+        <LocationList
+          selectedLocation={selectedLocation?.osm_id}
           locationList={locationList}
           game={game}
         />
-      }
+      </Overlay>
       <div className={styles.mapContainer}>
         <Map
           lat={selectedLocation ? selectedLocation?.lat : 51.51268}
           lng={selectedLocation ? selectedLocation?.lng : -0.13357}
         />
       </div>
-    </div>        
+      <Overlay direction={'right'}>
+        <LocationInfo />
+      </Overlay>    
+    </>       
   )
 }
 

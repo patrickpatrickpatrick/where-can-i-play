@@ -22,6 +22,26 @@
   width: 100%;
 }
 
+
+// noresultsContainer 
+
+.locationListNoResults {
+  background-color: white;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 4px;
+  
+  p {
+    padding-top: 0.5rem;
+  }
+}
+
+.locationListNoResultsHeader {
+  font-size: 1.3rem;
+}
+
+// gameBanner
+
 .gameBanner {
   position: relative;
   width: fit-content;

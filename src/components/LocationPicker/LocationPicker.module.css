@@ -1,9 +1,3 @@
-.locationPickerContainer {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
 .mapContainer {
   width: 100%;
 }

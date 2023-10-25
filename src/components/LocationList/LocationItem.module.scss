@@ -2,6 +2,7 @@
   background-color: white;
   margin-bottom: 2rem;
   padding: 1rem;
+  border-radius: 4px;
   
   p {
     padding-top: 0.5rem;
@@ -18,4 +19,14 @@
 
 .locationItemAddress {
   padding-top: 0.5rem;
+}
+
+// actionContainer
+
+.actionContainer {
+  padding-top: 1rem;
+}
+
+.actionContainerAction {
+  padding-right: 1rem;
 }

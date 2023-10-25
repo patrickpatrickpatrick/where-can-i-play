@@ -26,7 +26,7 @@ const Map: FunctionComponent<props> = (props) => {
   }, [])
 
   if (typeof global.window === "undefined" || !Client) {
-      return null;
+    return null;
   }
   
   return Client ? <Client {...props} /> : null;

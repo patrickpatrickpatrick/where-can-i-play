@@ -9,7 +9,7 @@ export interface Location {
   address: Address,
 }
 
-export interface Address {
+export interface LocationAddress {
   "ISO3166-2-lvl4": string,
   "ISO3166-2-lvl6": string,
   city: string,

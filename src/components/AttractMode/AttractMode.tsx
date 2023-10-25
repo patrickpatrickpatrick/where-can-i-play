@@ -7,7 +7,7 @@ import styles from './AttractMode.module.css';
 // plan is to make a random image which looks like
 // an arcade game title.
 
-export default () => <div className={styles.container}>
+const AttractMode = () => <div className={styles.container}>
   <div className={styles.contentContainer}>
     <h1 className={styles.header}>Where Can I Play...</h1> 
     <div className={styles.searchBoxContainer}>
@@ -15,3 +15,5 @@ export default () => <div className={styles.container}>
     </div>
   </div>
 </div>
+
+export default AttractMode
