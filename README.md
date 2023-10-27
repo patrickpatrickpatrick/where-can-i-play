@@ -6,6 +6,14 @@ This is a project created with `create-next-app`. It uses [Typescript](https://w
 
 This is currently an MVP and so the style, features and implementation will change.
 
+## Live Examples
+
+Currently using Heroku to deploy the MVP.
+
+Base Url: https://where-can-i-play-973eeff17911.herokuapp.com/
+Results for the game 'Time Crisis II': https://where-can-i-play-973eeff17911.herokuapp.com/game/13893
+Specfic arcade selected for the game 'Time Crisis II': https://where-can-i-play-973eeff17911.herokuapp.com/game/13893?arcadeId=5480809514
+
 ## Dependencies
 
 - [Next.js](https://nextjs.org/)
