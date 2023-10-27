@@ -32,8 +32,8 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
     locationList = await fetchLocations(gameId);
   }
 
-  if (locationList) {
-    selectedLocation = (arcadeId ? locationList.find(x => x.osm_id == parseInt(arcadeId)) : locationList[0])
+  if (locationList && arcadeId) {
+    selectedLocation = locationList.find(x => x.osm_id == parseInt(arcadeId))
   }
 
   return (
@@ -47,12 +47,15 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
       </Overlay>
       <div className={styles.mapContainer}>
         <Map
-          lat={selectedLocation ? selectedLocation?.lat : 51.51268}
-          lng={selectedLocation ? selectedLocation?.lng : -0.13357}
+          listOfPoints={locationList}
+          lat={selectedLocation?.lat}
+          lng={selectedLocation?.lng}
         />
       </div>
       <Overlay direction={'right'}>
-        <LocationInfo />
+        {
+          selectedLocation && <LocationInfo location={selectedLocation} />
+        }
       </Overlay>    
     </>       
   )

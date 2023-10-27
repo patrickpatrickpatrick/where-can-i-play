@@ -54,18 +54,18 @@ const LocationList = ({ game, locationList, selectedLocation }: props) => <>
   </div>
   <div className={styles.locationList}>
     <ul>
-        {
-          ((selectedLocation && locationList) || []).map((props: Location) =>
-            (<LocationItem
-              key={props.osm_id}
-              {...props}
-              isSelectedLocation={selectedLocation == props.osm_id}
-            />)
-          )
-        }
-        {
-          !locationList.length && <NoResults />
-        }
+      {
+        ((locationList) || []).map((props: Location) =>
+          (<LocationItem
+            key={props.osm_id}
+            {...props}
+            isSelectedLocation={selectedLocation == props.osm_id}
+          />)
+        )
+      }
+      {
+        !locationList.length && <NoResults />
+      }
     </ul>
   </div>
 </>

@@ -8,9 +8,15 @@ import 'leaflet/dist/leaflet.css'
 
 import React, { useState, useEffect, FunctionComponent } from 'react';
 
+interface Point {
+  lat: number,
+  lng: number,
+}
+
 interface props {
   lat: number|undefined,
   lng: number|undefined,
+  listOfPoints: Point[],
 }
 
 const Map: FunctionComponent<props> = (props) => {

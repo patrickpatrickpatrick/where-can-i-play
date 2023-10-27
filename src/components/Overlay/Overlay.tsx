@@ -5,7 +5,7 @@ interface props {
 	direction: "left"|"right"
 }
 
-const Overlay = ({ children, direction }: props) => <div
+const Overlay = ({ children, direction }: props) => children && <div
 	className={
 		direction == "left" ? styles.overlayLeft : styles.overlayRight
 	}

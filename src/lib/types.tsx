@@ -6,7 +6,7 @@ export interface Location {
   place_id: number,
   games: any,
   osm_id: number,
-  address: Address,
+  address: LocationAddress,
 }
 
 export interface LocationAddress {

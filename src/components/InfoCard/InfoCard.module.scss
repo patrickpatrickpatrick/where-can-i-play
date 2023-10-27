@@ -1,0 +1,21 @@
+.infoCard {
+  background-color: white;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  
+  p {
+    padding-top: 0.5rem;
+  }
+}
+
+.infoCardHoverable {
+  cursor: pointer;
+  &:hover {
+    background-color: hsl(0, 0%, 60%)  
+  }
+}
+
+.infoCardSelectable {
+  background-color: hsl(0, 0%, 75%)
+}
