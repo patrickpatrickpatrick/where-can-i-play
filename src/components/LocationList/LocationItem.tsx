@@ -4,6 +4,7 @@ import styles from './LocationItem.module.scss';
 import { LocationAddress } from './../../lib/types';
 import InfoCard from './../InfoCard/InfoCard';
 import Link from 'next/link';
+import { useQueryState, parseAsInteger } from 'next-usequerystate'
 
 interface props {
   osm_id: number,
@@ -17,21 +18,26 @@ const LocationItem = ({
   isSelectedLocation,
   name,
   address,
-}: props) => <li
-  key={osm_id}
->
-  <InfoCard
-    isHoverable={true}
-    isSelectable={isSelectedLocation}
+}: props) => {
+
+  const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)
+
+  return (<li
+    key={osm_id}
   >
-    <Link href={`?arcadeId=${osm_id}`}>
-      <h3
-        className={styles.locationItemName}
-      >
-        {name}
-      </h3>
-    </Link>
-  </InfoCard>
-</li>
+    <InfoCard
+      isHoverable={true}
+      isSelectable={arcadeId == osm_id}
+    >
+      <a onClick={() => setArcadeId(osm_id)}>
+        <h3
+          className={styles.locationItemName}
+        >
+          {name}
+        </h3>
+      </a>
+    </InfoCard>
+  </li>)
+} 
 
 export default LocationItem;

@@ -12,6 +12,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import L from 'leaflet';
 import { Location } from './../../lib/types';
+import { useQueryState, parseAsInteger } from 'next-usequerystate'
 
 interface Point {
   lat: number,
@@ -83,16 +84,22 @@ const ArcadesGroup = (props: { listOfPoints?: Location[], selectedLocation: Loca
   </FeatureGroup> : null
 }
 
-const Map = ({ listOfPoints, selectedLocation }: props) => <MapContainer
-  center={[64.536634, 16.779852]}
-  zoom={100}
-  style={{ height: '100vh', width: '100%' }}
->
-  <TileLayer
-    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-  <ArcadesGroup selectedLocation={selectedLocation} listOfPoints={listOfPoints} />
-</MapContainer>
+const Map = ({ listOfPoints, selectedLocation }: props) => {
+  const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)
+
+  const tempSelectedLocation = (listOfPoints || []).filter(x => x.osm_id == arcadeId)[0]
+
+  return (<MapContainer
+    center={[64.536634, 16.779852]}
+    zoom={100}
+    style={{ height: '100vh', width: '100%' }}
+  >
+   <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <ArcadesGroup selectedLocation={tempSelectedLocation} listOfPoints={listOfPoints} />
+  </MapContainer>)
+} 
 
 export default Map;
