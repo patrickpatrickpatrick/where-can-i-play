@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './LocationItem.module.scss';
 import { LocationAddress } from './../../lib/types';
 import InfoCard from './../InfoCard/InfoCard';

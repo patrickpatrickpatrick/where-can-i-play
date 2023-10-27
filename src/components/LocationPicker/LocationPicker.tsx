@@ -48,6 +48,7 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
       <div className={styles.mapContainer}>
         <Map
           listOfPoints={locationList}
+          selectedLocation={selectedLocation}
           lat={selectedLocation?.lat}
           lng={selectedLocation?.lng}
         />
