@@ -38,7 +38,7 @@ const NoResults = () => <li
   <h3
     className={styles.locationListNoResultsHeader}
   >
-    We don't know where you can play this.
+    We don&lsquo;t know where you can play this.
   </h3>
   <p>
     If you know, please considering contributing!
