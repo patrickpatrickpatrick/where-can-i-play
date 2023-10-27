@@ -12,7 +12,8 @@ import { Location } from './../../lib/types';
 interface props {
   lat: number|undefined,
   lng: number|undefined,
-  listOfPoints?: Location[]
+  listOfPoints?: Location[],
+  selectedLocation: Location,
 }
 
 const Map: FunctionComponent<props> = (props) => {
