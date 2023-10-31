@@ -3,34 +3,14 @@ import SearchBox from '../SearchBox/SearchBox';
 import styles from './LocationList.module.scss';
 import { Location, Game } from '../../lib/types';
 import Image from 'next/image';
+import InfoCard from './../InfoCard/InfoCard';
+import GameBanner from './../GameBanner/GameBanner';
 
 interface props {
   locationList: Location[],
   selectedLocation?: number,
   game: Game
 }
-
-const getYear = (date: number) => (new Date(date * 1000)).getFullYear()
-
-const GameBanner = ({
- name, first_release_date, cover: { url } 
-}: Game) => <div
-    className={styles.gameBanner}
-  >
-  <h2 className={styles.gameBannerTitle}>
-    { name } ({ getYear(first_release_date) })
-  </h2>
-  <div
-    className={styles.gameBannerImageContainer}
-  >
-    <Image
-      src={`https:${url.replace('t_thumb', 't_cover_big')}`}
-      width={264}
-      height={352}
-      alt={`Cover art for ${name}}`}
-    />
-  </div>
-</div>
 
 const NoResults = () => <li
   className={styles.locationListNoResults}
@@ -46,13 +26,15 @@ const NoResults = () => <li
 </li>
 
 const LocationList = ({ game, locationList, selectedLocation }: props) => <>
-  <div className={styles.locationListSearchBoxContainer}>
-    <SearchBox selectedGame={game} />
-  </div>
   <div className={styles.locationListGameBannerContainer}>
     <GameBanner {...game} />
   </div>
   <div className={styles.locationList}>
+    {
+      locationList.length && <InfoCard><span className={styles.locationListResults}>
+        {locationList.length} result{locationList.length > 1 ? 's' : ''}
+      </span></InfoCard>
+    }
     <ul>
       {
         ((locationList) || []).map((props: Location) =>

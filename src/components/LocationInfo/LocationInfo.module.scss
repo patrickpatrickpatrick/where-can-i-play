@@ -1,3 +1,10 @@
+// to override specificity 
+// of leaflet
+p.locationInfoParagraph {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+}
+
 .locationInfoTitle {
   font-size: 1.3rem;
   padding-bottom: 0.5rem;

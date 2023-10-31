@@ -25,24 +25,19 @@ const Address = ({
 }: LocationAddress) => <address
   className={styles.locationItemAddress}
 >
-  <p>{house_number} {road}</p>
-  <p>{road}</p>
-  <p>{city}</p>
-  <p>{postcode}</p>
+  <p className={styles.locationInfoParagraph}>{house_number} {road}</p>
+  <p className={styles.locationInfoParagraph}>{road}</p>
+  <p className={styles.locationInfoParagraph}>{city}</p>
+  <p className={styles.locationInfoParagraph}>{postcode}</p>
 </address>
 
 const LocationInfo = ({ location: { name, address } }: props) => <>
-  <InfoCard>
-    <h3
-      className={styles.locationInfoTitle}
-    >
-      {name}
-    </h3>
-    <Address {...address} />
-  </InfoCard>
-  <h4>
-    You can also play...
-  </h4>
+  <h3
+    className={styles.locationInfoTitle}
+  >
+    {name}
+  </h3>
+  <Address {...address} />
 </>
 
 export default LocationInfo;

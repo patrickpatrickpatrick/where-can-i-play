@@ -3,7 +3,7 @@
 import { ActionMeta, components, OptionProps } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import debounce from "lodash/debounce";
-import { useState, useContext, useId } from 'react';
+import { useState, useId, useEffect } from 'react';
 import { getGamesFromIgdb } from './../../lib/igdbFunctions';
 import { Game } from "./../../lib/types";
 import Link from 'next/link';
@@ -43,14 +43,16 @@ export default function SearchBox(props: props) {
   const [selectedOption, setSelectedOption] = useState<Option|null>(null);
   const { id, options, selectedGame } = props;
 
-  const loadOptions = debounce(getOptions, 300);
+  useEffect(() => {
+    if (selectedGame && !selectedOption) {
+      setSelectedOption({
+        label: selectedGame.name,
+        value: JSON.stringify(selectedGame)
+      })
+    }
+  }, [])
 
-  if (selectedGame && !selectedOption) {
-    setSelectedOption({
-      label: selectedGame["name"],
-      value: JSON.stringify(selectedGame)
-    })
-  }
+  const loadOptions = debounce(getOptions, 300);
 
 	return (
     <AsyncSelect
@@ -67,7 +69,7 @@ export default function SearchBox(props: props) {
       isSearchable
       menuIsOpen={true}
       isClearable
-      defaultValue={selectedOption}
+      placeholder={"Search for a game..."}
       defaultOptions={options}
       noOptionsMessage={({ inputValue }) => inputValue.length > 0 ? "No results" : null}
       loadOptions={loadOptions}

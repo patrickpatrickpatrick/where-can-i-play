@@ -1,0 +1,18 @@
+.mapContainer {
+  width: 100%;
+}
+
+.searchContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 1rem;
+  position: absolute;
+  width: 100%;
+  z-index: 99999;
+}
+
+.searchBoxContainer {
+  width: 260px;
+}

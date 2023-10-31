@@ -13,7 +13,7 @@ interface props {
   lat: number|undefined,
   lng: number|undefined,
   listOfPoints?: Location[],
-  selectedLocation: Location,
+  selectedLocation: Location|undefined,
 }
 
 const Map: FunctionComponent<props> = (props) => {

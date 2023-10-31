@@ -2,10 +2,12 @@ import Overlay from './../Overlay/Overlay';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
 import LocationInfo from './../LocationInfo/LocationInfo';
-import styles from './LocationPicker.module.css';
+import GameBanner from './../GameBanner/GameBanner';
+import styles from './LocationPicker.module.scss';
 import { Location, Game } from '../../lib/types';
 import { getArcades } from './../../lib/firebaseFunctions'
 import { getGameFromIgdb } from './../../lib/igdbFunctions';
+import SearchBox from '../SearchBox/SearchBox';
 
 interface locationPickerProps {
   gameId?: string
@@ -45,6 +47,13 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
           game={game}
         />
       </Overlay>
+      <div className={styles.searchContainer}>
+        <span>I want to play</span>
+        <div className={styles.searchBoxContainer}>
+          <SearchBox selectedGame={game} />
+        </div>
+        <span>in</span>
+      </div>
       <div className={styles.mapContainer}>
         <Map
           listOfPoints={locationList}
@@ -52,12 +61,7 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
           lat={selectedLocation?.lat}
           lng={selectedLocation?.lng}
         />
-      </div>
-      <Overlay direction={'right'}>
-        {
-          selectedLocation && <LocationInfo location={selectedLocation} />
-        }
-      </Overlay>    
+      </div>  
     </>       
   )
 }

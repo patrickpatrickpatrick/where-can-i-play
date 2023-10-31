@@ -15,13 +15,17 @@
 }
 
 .locationListGameBannerContainer {
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .locationList {
   width: 100%;
 }
 
+.locationListResults {
+  font-size: 2rem;
+  font-weight: 500;
+}
 
 // noresultsContainer 
 
@@ -38,23 +42,4 @@
 
 .locationListNoResultsHeader {
   font-size: 1.3rem;
-}
-
-// gameBanner
-
-.gameBanner {
-  position: relative;
-  width: fit-content;
-}
-
-.gameBannerTitle {
-  position: absolute;
-  color: white;
-  bottom: 1rem;
-  text-align: center;
-  width: 100%;
-}
-
-.gameBannerImageContainer {
-
 }

@@ -11,6 +11,14 @@ body {
   overflow-x: hidden;
 }
 
+.leaflet-popup.leaflet-zoom-animated {
+	width: 200px;
+}
+
+.leaflet-popup-close-button {
+	display: none;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
