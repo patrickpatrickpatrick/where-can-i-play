@@ -3,25 +3,22 @@ export interface Location {
   name: string,
   lat: number,
   lng: number,
-  place_id: number,
-  games: any,
+  games: number[],
   osm_id: number,
   address: LocationAddress,
 }
 
 export interface LocationAddress {
-  "ISO3166-2-lvl4": string,
-  "ISO3166-2-lvl6": string,
   city: string,
-  country: string
-  country_code: string,
+  region: {
+    name: string,
+    country: {
+      name: string
+    }
+  },
   house_number: string,
-  leisure: string,
-  neighbourhood: string,
   postcode: string,
   road: string,
-  state: string,
-  suburb: string
 }
 
 export interface Game {
