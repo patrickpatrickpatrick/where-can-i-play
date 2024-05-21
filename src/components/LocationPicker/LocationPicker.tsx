@@ -20,7 +20,7 @@ const fetchGame = async (id: string) => {
 }
 
 const fetchLocations = async (id: string) => {
-  let listOfArcades = await getArcades(id);
+  let listOfArcades = await getArcades(parseInt(id));
   return listOfArcades;
 }
 
