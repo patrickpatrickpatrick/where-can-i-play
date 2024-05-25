@@ -1,8 +1,8 @@
-import { LocationWithAddress, LocationAddress } from '../../lib/types';
+import { ArcadeWithAddress, LocationAddress } from '../../lib/types';
 import styles from './LocationInfo.module.scss';
 
 export interface LocationInfoProps {
-	location: LocationWithAddress;
+	location: ArcadeWithAddress;
 }
 
 const ActionContainer = ({ url }: { url: string }) => <div

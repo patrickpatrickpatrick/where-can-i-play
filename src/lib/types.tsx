@@ -1,4 +1,4 @@
-export interface Location {
+export interface Arcade {
   id: string,
   name: string,
   lat: number,
@@ -7,7 +7,7 @@ export interface Location {
   osm_id: number,
 }
 
-export interface LocationAddress {
+export interface Address {
   city: string,
   region: string,
   country: string,
@@ -16,13 +16,13 @@ export interface LocationAddress {
   road: string,
 }
 
-export type LocationWithAddress = Location & LocationAddress
+export type ArcadeWithAddress = Arcade & Address
 
-export interface Game {
+export type Game = {
   name: string,
   id: number,
   first_release_date: number,
   cover: {
     url: string
   }
-}
+} | {}

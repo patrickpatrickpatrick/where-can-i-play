@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './LocationItem.module.scss';
-import { LocationWithAddress } from './../../lib/types';
+import { ArcadeWithAddress } from './../../lib/types';
 import InfoCard from './../InfoCard/InfoCard';
 import { useQueryState, parseAsInteger, Options } from 'next-usequerystate'
 
@@ -15,7 +15,7 @@ export const LocationItem = ({
   name,
   arcadeId,
   setArcadeId,
-}: LocationWithAddress & props) => <li
+}: ArcadeWithAddress & props) => <li
     key={osm_id}
   >
     <InfoCard
@@ -32,7 +32,7 @@ export const LocationItem = ({
     </InfoCard>
 </li>
 
-export default (props: LocationWithAddress) => {
+export default (props: ArcadeWithAddress) => {
   const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)
 
   return <LocationItem {...{...props, arcadeId, setArcadeId}} />

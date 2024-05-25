@@ -9,18 +9,18 @@ import "leaflet-defaulticon-compatibility";
 
 import { MapContainer, TileLayer, useMap, FeatureGroup, Popup } from 'react-leaflet'
 import { latLng, latLngBounds } from 'leaflet';
-import { LocationWithAddress } from './../../lib/types';
+import { ArcadeWithAddress } from './../../lib/types';
 import { useQueryState, parseAsInteger } from 'next-usequerystate'
 import ArcadeMarker from './ArcadeMarker';
 
 interface props {
   lat: number|undefined,
   lng: number|undefined,
-  listOfPoints?: LocationWithAddress[],
-  selectedLocation: LocationWithAddress|undefined,
+  listOfPoints?: ArcadeWithAddress[],
+  selectedLocation: ArcadeWithAddress|undefined,
 }
 
-const ArcadesGroup = (props: { listOfPoints?: LocationWithAddress[] }) => {
+const ArcadesGroup = (props: { listOfPoints?: ArcadeWithAddress[] }) => {
   const { listOfPoints } = props;
   const map = useMap();
   const [arcadeId] = useQueryState('arcadeId', parseAsInteger)

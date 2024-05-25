@@ -1,10 +1,10 @@
 import LocationItem from './LocationItem';
 import styles from './LocationList.module.scss';
-import { LocationWithAddress, Game } from '../../lib/types';
+import { ArcadeWithAddress, Game } from '../../lib/types';
 import GameBanner from './../GameBanner/GameBanner';
 
 interface props {
-  locationList: LocationWithAddress[],
+  locationList: ArcadeWithAddress[],
   selectedLocation?: number,
   game: Game
 }
@@ -36,7 +36,7 @@ const LocationList = ({ game, locationList }: props) => <>
     }
     <ul>
       {
-        ((locationList) || []).map((props: LocationWithAddress) =>
+        ((locationList) || []).map((props: ArcadeWithAddress) =>
           (<LocationItem
             key={props.osm_id}
             {...props}

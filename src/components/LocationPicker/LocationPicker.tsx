@@ -2,7 +2,7 @@ import Overlay from './../Overlay/Overlay';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
 import styles from './LocationPicker.module.scss';
-import { LocationWithAddress, Game } from '../../lib/types';
+import { ArcadeWithAddress, Game, Arcade } from '../../lib/types';
 import { getArcades } from './../../lib/firebaseFunctions'
 import { getGameFromIgdb } from './../../lib/igdbFunctions';
 import SearchBox from '../SearchBox/SearchBox';
@@ -17,25 +17,12 @@ const fetchGame: (id: string) => Promise<Game> = async (id: string) => {
   return game;
 }
 
-const fetchLocations = async (id: string) => {
+const fetchArcades = async (id: string) => {
   let listOfArcades = await getArcades(parseInt(id));
   return listOfArcades;
 }
 
-const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
-  let locationList = [] as LocationWithAddress[];
-  let selectedLocation;
-  let game = {} as Game;
-
-  if (gameId) {
-    game = await fetchGame(gameId);
-    locationList = await fetchLocations(gameId);
-  }
-
-  if (locationList && arcadeId) {
-    selectedLocation = locationList.find(x => x.osm_id == parseInt(arcadeId))
-  }
-
+export const LocationPicker = async ({ game, selectedLocation, locationList }: { game: Game, selectedLocation: ArcadeWithAddress | undefined, locationList: ArcadeWithAddress[] }) => {
   return (
     <>
       <Overlay direction={'left'}>
@@ -64,4 +51,27 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
   )
 }
 
-export default LocationPicker;
+export default async ({ gameId, arcadeId }: locationPickerProps) => {
+  let locationList: ArcadeWithAddress[]  = [];
+  let selectedLocation;
+  let game: Game = {};
+
+  if (gameId) {
+    game = await fetchGame(gameId);
+    locationList = await fetchArcades(gameId);
+  }
+
+  if (locationList && arcadeId) {
+    selectedLocation = locationList.find(x => x.osm_id == parseInt(arcadeId))
+  }
+
+  return <LocationPicker
+    {
+      ...{
+        game,
+        selectedLocation,
+        locationList
+      }
+    }
+  />
+}
