@@ -1,9 +1,8 @@
-import { Location, LocationAddress } from '../../lib/types';
+import { LocationWithAddress, LocationAddress } from '../../lib/types';
 import styles from './LocationInfo.module.scss';
-import InfoCard from './../InfoCard/InfoCard';
 
-interface props {
-	location: Location;
+export interface LocationInfoProps {
+	location: LocationWithAddress;
 }
 
 const ActionContainer = ({ url }: { url: string }) => <div
@@ -31,7 +30,7 @@ const Address = ({
   <p className={styles.locationInfoParagraph}>{postcode}</p>
 </address>
 
-const LocationInfo = ({ location: { name, address } }: props) => <>
+const LocationInfo = ({ location: { name, ...address } }: LocationInfoProps) => <>
   <h3
     className={styles.locationInfoTitle}
   >

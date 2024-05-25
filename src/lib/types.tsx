@@ -5,21 +5,18 @@ export interface Location {
   lng: number,
   games: number[],
   osm_id: number,
-  address: LocationAddress,
 }
 
 export interface LocationAddress {
   city: string,
-  region: {
-    name: string,
-    country: {
-      name: string
-    }
-  },
+  region: string,
+  country: string,
   house_number: string,
   postcode: string,
   road: string,
 }
+
+export type LocationWithAddress = Location & LocationAddress
 
 export interface Game {
   name: string,

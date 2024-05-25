@@ -3,13 +3,13 @@ import { classGenerator } from "@/lib/utils";
 
 const classForInfoCard = classGenerator("infoCard", styles);
 
-interface props {
+export interface props {
   isHoverable?: boolean,
   isSelectable?: boolean,
   children: React.ReactNode
 }
 
-const InfoCard = ({ isHoverable, isSelectable, children }: props) =>
+export const InfoCard = ({ isHoverable, isSelectable, children }: props) =>
   <div className={classForInfoCard(isHoverable, isSelectable)}>
     {children}
 </div>

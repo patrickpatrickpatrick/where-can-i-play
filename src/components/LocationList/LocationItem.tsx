@@ -1,35 +1,28 @@
 'use client';
 
 import styles from './LocationItem.module.scss';
-import { LocationAddress } from './../../lib/types';
+import { LocationWithAddress } from './../../lib/types';
 import InfoCard from './../InfoCard/InfoCard';
-import Link from 'next/link';
-import { useQueryState, parseAsInteger } from 'next-usequerystate'
+import { useQueryState, parseAsInteger, Options } from 'next-usequerystate'
 
-interface props {
-  osm_id: number,
-  name: string,
-  isSelectedLocation: boolean,
-  address: LocationAddress
+export type props = {
+  arcadeId: number | null
+  setArcadeId: (value: number | ((old: number | null) => number | null) | null, options?: Options | undefined) => Promise<URLSearchParams> | null
 }
 
-const LocationItem = ({
+export const LocationItem = ({
   osm_id,
-  isSelectedLocation,
   name,
-  address,
-}: props) => {
-
-  const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)
-
-  return (<li
+  arcadeId,
+  setArcadeId,
+}: LocationWithAddress & props) => <li
     key={osm_id}
   >
     <InfoCard
       isHoverable={true}
       isSelectable={arcadeId == osm_id}
     >
-      <a onClick={() => setArcadeId(osm_id)}>
+      <a onClick={() => setArcadeId && setArcadeId(osm_id)}>
         <h3
           className={styles.locationItemName}
         >
@@ -37,7 +30,10 @@ const LocationItem = ({
         </h3>
       </a>
     </InfoCard>
-  </li>)
-} 
+</li>
 
-export default LocationItem;
+export default (props: LocationWithAddress) => {
+  const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)
+
+  return <LocationItem {...{...props, arcadeId, setArcadeId}} />
+}

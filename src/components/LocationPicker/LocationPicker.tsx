@@ -1,10 +1,8 @@
 import Overlay from './../Overlay/Overlay';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
-import LocationInfo from './../LocationInfo/LocationInfo';
-import GameBanner from './../GameBanner/GameBanner';
 import styles from './LocationPicker.module.scss';
-import { Location, Game } from '../../lib/types';
+import { LocationWithAddress, Game } from '../../lib/types';
 import { getArcades } from './../../lib/firebaseFunctions'
 import { getGameFromIgdb } from './../../lib/igdbFunctions';
 import SearchBox from '../SearchBox/SearchBox';
@@ -14,7 +12,7 @@ interface locationPickerProps {
   arcadeId?: string
 }
 
-const fetchGame = async (id: string) => {
+const fetchGame: (id: string) => Promise<Game> = async (id: string) => {
   let game = await getGameFromIgdb(id);
   return game;
 }
@@ -25,7 +23,7 @@ const fetchLocations = async (id: string) => {
 }
 
 const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
-  let locationList = [] as Location[];
+  let locationList = [] as LocationWithAddress[];
   let selectedLocation;
   let game = {} as Game;
 
