@@ -64,6 +64,7 @@ export default async (
 
   if (gameId) {
     game = await fetchGame(gameId);
+    game.cover.url = `https:${game.cover.url.replace('t_thumb', 't_cover_big')}`
     locationList = await fetchArcades(gameId);
   }
 
