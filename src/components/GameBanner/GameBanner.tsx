@@ -16,7 +16,7 @@ const GameBanner = ({
     className={styles.gameBannerImageContainer}
   >
     <Image
-      src={`https:${url.replace('t_thumb', 't_cover_big')}`}
+      src={url}
       width={264}
       height={352}
       alt={`Cover art for ${name}}`}

@@ -3,32 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -- -p 3001",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
     "eslint": "8.46.0",
-    "eslint-config-next": "13.4.13",
+    "eslint-config-next": "^14.2.3",
     "firebase-admin": "^11.10.1",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "lodash": "^4.17.21",
-    "next": "13.4.13",
-    "next-usequerystate": "^1.9.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "next": "^14.2.3",
+    "next-usequerystate": "^1.17.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
     "react-select": "^5.7.4",
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.4.0",
+    "@storybook/addon-essentials": "^8.1.1",
+    "@storybook/addon-interactions": "^8.1.1",
+    "@storybook/addon-links": "^8.1.1",
+    "@storybook/addon-onboarding": "^8.1.1",
+    "@storybook/blocks": "^8.1.1",
+    "@storybook/nextjs": "^8.1.1",
+    "@storybook/react": "^8.1.1",
+    "@storybook/test": "^8.1.1",
     "@types/leaflet": "^1.9.3",
     "@types/lodash": "^4.14.199",
-    "sass": "^1.69.3"
+    "eslint-plugin-storybook": "^0.8.0",
+    "sass": "^1.69.3",
+    "storybook": "^8.1.1"
   }
 }

@@ -1,15 +1,12 @@
 import LocationItem from './LocationItem';
-import SearchBox from '../SearchBox/SearchBox';
 import styles from './LocationList.module.scss';
-import { Location, Game } from '../../lib/types';
-import Image from 'next/image';
-import InfoCard from './../InfoCard/InfoCard';
+import { ArcadeWithAddress, Game } from '../../lib/types';
 import GameBanner from './../GameBanner/GameBanner';
 
 interface props {
-  locationList: Location[],
+  locationList: ArcadeWithAddress[],
   selectedLocation?: number,
-  game: Game
+  game: Game | undefined
 }
 
 const NoResults = () => <li
@@ -21,28 +18,37 @@ const NoResults = () => <li
     We don&lsquo;t know where you can play this.
   </h3>
   <p>
-    If you know, please considering contributing!
+    If you know, please consider contributing!
   </p>
 </li>
 
-const LocationList = ({ game, locationList, selectedLocation }: props) => <>
+const LocationList = ({ game, locationList }: props) => <>
   <div className={styles.locationListGameBannerContainer}>
-    <GameBanner {...game} />
+    {
+      game && <GameBanner
+        {...{...game, cover: { url: `https:${game.cover.url.replace('t_thumb', 't_cover_big')}` }}}
+      />
+    }
   </div>
   <div className={styles.locationList}>
     {
-      locationList.length && <InfoCard><span className={styles.locationListResults}>
-        {locationList.length} result{locationList.length > 1 ? 's' : ''}
-      </span></InfoCard>
+      locationList.length && <div>
+          <span className={styles.locationListResults}>
+            {locationList.length} result{locationList.length > 1 ? 's' : ''}
+          </span>
+        </div>
     }
     <ul>
       {
-        ((locationList) || []).map((props: Location) =>
-          (<LocationItem
+        ((locationList) || []).map((props: ArcadeWithAddress) =>
+          (<li
             key={props.osm_id}
-            {...props}
-            isSelectedLocation={selectedLocation == props.osm_id}
-          />)
+          >
+            <LocationItem
+
+              {...props}
+            />
+          </li>)
         )
       }
       {

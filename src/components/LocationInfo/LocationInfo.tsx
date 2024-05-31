@@ -1,9 +1,8 @@
-import { Location, LocationAddress } from '../../lib/types';
+import { ArcadeWithAddress, Address as ArcadeAddress } from '../../lib/types';
 import styles from './LocationInfo.module.scss';
-import InfoCard from './../InfoCard/InfoCard';
 
-interface props {
-	location: Location;
+export interface LocationInfoProps {
+	location: ArcadeAddress & { name: string };
 }
 
 const ActionContainer = ({ url }: { url: string }) => <div
@@ -22,7 +21,7 @@ const Address = ({
   house_number,
   postcode,
   road,
-}: LocationAddress) => <address
+}: ArcadeAddress) => <address
   className={styles.locationItemAddress}
 >
   <p className={styles.locationInfoParagraph}>{house_number} {road}</p>
@@ -31,7 +30,7 @@ const Address = ({
   <p className={styles.locationInfoParagraph}>{postcode}</p>
 </address>
 
-const LocationInfo = ({ location: { name, address } }: props) => <>
+const LocationInfo = ({ location: { name, ...address } }: LocationInfoProps) => <>
   <h3
     className={styles.locationInfoTitle}
   >

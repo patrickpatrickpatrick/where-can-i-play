@@ -1,43 +1,32 @@
 import Overlay from './../Overlay/Overlay';
 import Map from './../Map/Map';
 import LocationList from './../LocationList/LocationList';
-import LocationInfo from './../LocationInfo/LocationInfo';
-import GameBanner from './../GameBanner/GameBanner';
 import styles from './LocationPicker.module.scss';
-import { Location, Game } from '../../lib/types';
+import { ArcadeWithAddress, Game, Arcade } from '../../lib/types';
 import { getArcades } from './../../lib/firebaseFunctions'
 import { getGameFromIgdb } from './../../lib/igdbFunctions';
 import SearchBox from '../SearchBox/SearchBox';
 
 interface locationPickerProps {
-  gameId?: string
-  arcadeId?: string
+  game: Game | undefined,
+  selectedLocation: ArcadeWithAddress | undefined,
+  locationList: ArcadeWithAddress[]
 }
 
-const fetchGame = async (id: string) => {
+const fetchGame: (id: string) => Promise<Game> = async (id: string) => {
   let game = await getGameFromIgdb(id);
   return game;
 }
 
-const fetchLocations = async (id: string) => {
+const fetchArcades = async (id: string) => {
   let listOfArcades = await getArcades(parseInt(id));
   return listOfArcades;
 }
 
-const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
-  let locationList = [] as Location[];
-  let selectedLocation;
-  let game = {} as Game;
-
-  if (gameId) {
-    game = await fetchGame(gameId);
-    locationList = await fetchLocations(gameId);
-  }
-
-  if (locationList && arcadeId) {
-    selectedLocation = locationList.find(x => x.osm_id == parseInt(arcadeId))
-  }
-
+export const LocationPicker = async ({
+    game, selectedLocation, locationList
+  }: locationPickerProps
+) => {
   return (
     <>
       <Overlay direction={'left'}>
@@ -66,4 +55,29 @@ const LocationPicker = async ({ gameId, arcadeId }: locationPickerProps) => {
   )
 }
 
-export default LocationPicker;
+export default async (
+  { gameId, arcadeId }: { gameId?: string, arcadeId?: string }
+) => {
+  let locationList: ArcadeWithAddress[] = [];
+  let selectedLocation;
+  let game;
+
+  if (gameId) {
+    game = await fetchGame(gameId);
+    locationList = await fetchArcades(gameId);
+  }
+
+  if (locationList && arcadeId) {
+    selectedLocation = locationList.find(x => x.osm_id == parseInt(arcadeId))
+  }
+
+  return <LocationPicker
+    {
+      ...{
+        game,
+        selectedLocation,
+        locationList
+      }
+    }
+  />
+}

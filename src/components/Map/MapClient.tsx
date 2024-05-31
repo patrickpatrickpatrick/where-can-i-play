@@ -9,21 +9,21 @@ import "leaflet-defaulticon-compatibility";
 
 import { MapContainer, TileLayer, useMap, FeatureGroup, Popup } from 'react-leaflet'
 import { latLng, latLngBounds } from 'leaflet';
-import { Location } from './../../lib/types';
+import { ArcadeWithAddress } from './../../lib/types';
 import { useQueryState, parseAsInteger } from 'next-usequerystate'
 import ArcadeMarker from './ArcadeMarker';
 
 interface props {
   lat: number|undefined,
   lng: number|undefined,
-  listOfPoints?: Location[],
-  selectedLocation: Location|undefined,
+  listOfPoints?: ArcadeWithAddress[],
+  selectedLocation: ArcadeWithAddress|undefined,
 }
 
-const ArcadesGroup = (props: { listOfPoints?: Location[] }) => {
+const ArcadesGroup = (props: { listOfPoints?: ArcadeWithAddress[] }) => {
   const { listOfPoints } = props;
   const map = useMap();
-  const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)
+  const [arcadeId] = useQueryState('arcadeId', parseAsInteger)
 
   map.zoomControl.setPosition('topright');
 
@@ -35,6 +35,7 @@ const ArcadesGroup = (props: { listOfPoints?: Location[] }) => {
   return listOfPoints ? <FeatureGroup>
     {
       listOfPoints.map((location) => <ArcadeMarker 
+        arcadeId={arcadeId}
         key={`${location.lat}${location.lng}`}
         location={location}
       />)
