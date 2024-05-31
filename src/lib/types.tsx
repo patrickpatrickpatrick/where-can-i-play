@@ -25,4 +25,4 @@ export type Game = {
   cover: {
     url: string
   }
-} | {}
+}

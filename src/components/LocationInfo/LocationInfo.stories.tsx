@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import LocationInfo, { LocationInfoProps } from './LocationInfo';
+import LocationInfo from './LocationInfo';
 
 const meta: Meta<typeof LocationInfo> = {
   component: LocationInfo,
@@ -16,7 +16,9 @@ export const Primary: Story = {
       city: "London",
       house_number: "98",
       postcode: "LON DON",
-      road: "Cool Road",      
+      road: "Cool Road",
+      region: "Region",
+      country: "Country",
     }
   },
 };

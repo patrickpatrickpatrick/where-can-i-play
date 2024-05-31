@@ -6,7 +6,7 @@ import GameBanner from './../GameBanner/GameBanner';
 interface props {
   locationList: ArcadeWithAddress[],
   selectedLocation?: number,
-  game: Game
+  game: Game | undefined
 }
 
 const NoResults = () => <li
@@ -24,7 +24,11 @@ const NoResults = () => <li
 
 const LocationList = ({ game, locationList }: props) => <>
   <div className={styles.locationListGameBannerContainer}>
-    <GameBanner {...{...game, cover: { url: `https:${game.cover.url.replace('t_thumb', 't_cover_big')}` }}} />
+    {
+      game && <GameBanner
+        {...{...game, cover: { url: `https:${game.cover.url.replace('t_thumb', 't_cover_big')}` }}}
+      />
+    }
   </div>
   <div className={styles.locationList}>
     {
@@ -37,10 +41,14 @@ const LocationList = ({ game, locationList }: props) => <>
     <ul>
       {
         ((locationList) || []).map((props: ArcadeWithAddress) =>
-          (<LocationItem
+          (<li
             key={props.osm_id}
-            {...props}
-          />)
+          >
+            <LocationItem
+
+              {...props}
+            />
+          </li>)
         )
       }
       {

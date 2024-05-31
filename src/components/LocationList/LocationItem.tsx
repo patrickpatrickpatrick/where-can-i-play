@@ -15,22 +15,18 @@ export const LocationItem = ({
   name,
   arcadeId,
   setArcadeId,
-}: ArcadeWithAddress & props) => <li
-    key={osm_id}
-  >
-    <InfoCard
-      isHoverable={true}
-      isSelectable={arcadeId == osm_id}
+}: ArcadeWithAddress & props) => <InfoCard
+  isHoverable={true}
+  isSelectable={arcadeId == osm_id}
+>
+  <a onClick={() => setArcadeId && setArcadeId(osm_id)}>
+    <h3
+      className={styles.locationItemName}
     >
-      <a onClick={() => setArcadeId && setArcadeId(osm_id)}>
-        <h3
-          className={styles.locationItemName}
-        >
-          {name}
-        </h3>
-      </a>
-    </InfoCard>
-</li>
+      {name}
+    </h3>
+  </a>
+</InfoCard>
 
 export default (props: ArcadeWithAddress) => {
   const [arcadeId, setArcadeId] = useQueryState('arcadeId', parseAsInteger)

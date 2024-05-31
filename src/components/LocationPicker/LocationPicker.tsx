@@ -8,8 +8,9 @@ import { getGameFromIgdb } from './../../lib/igdbFunctions';
 import SearchBox from '../SearchBox/SearchBox';
 
 interface locationPickerProps {
-  gameId?: string
-  arcadeId?: string
+  game: Game | undefined,
+  selectedLocation: ArcadeWithAddress | undefined,
+  locationList: ArcadeWithAddress[]
 }
 
 const fetchGame: (id: string) => Promise<Game> = async (id: string) => {
@@ -22,7 +23,10 @@ const fetchArcades = async (id: string) => {
   return listOfArcades;
 }
 
-export const LocationPicker = async ({ game, selectedLocation, locationList }: { game: Game, selectedLocation: ArcadeWithAddress | undefined, locationList: ArcadeWithAddress[] }) => {
+export const LocationPicker = async ({
+    game, selectedLocation, locationList
+  }: locationPickerProps
+) => {
   return (
     <>
       <Overlay direction={'left'}>
@@ -51,10 +55,12 @@ export const LocationPicker = async ({ game, selectedLocation, locationList }: {
   )
 }
 
-export default async ({ gameId, arcadeId }: locationPickerProps) => {
-  let locationList: ArcadeWithAddress[]  = [];
+export default async (
+  { gameId, arcadeId }: { gameId?: string, arcadeId?: string }
+) => {
+  let locationList: ArcadeWithAddress[] = [];
   let selectedLocation;
-  let game: Game = {};
+  let game;
 
   if (gameId) {
     game = await fetchGame(gameId);
