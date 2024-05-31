@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   description: "It's... Where Can I Play",
 }
 
+export const BodyLayout = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => <div className={inter.className}>
+  {children}
+</div>
+
 export default function RootLayout({
   children,
 }: {
@@ -16,8 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
+      <body>
+        <BodyLayout>
+          {children}
+        </BodyLayout>
       </body>
     </html>
   )
